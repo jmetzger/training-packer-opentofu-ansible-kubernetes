@@ -9,6 +9,6 @@
   1. Packer
      * [Packer installieren](packer/01-installation.md)
      * [Packer bash-completion aktivieren](packer/02-bash-completion.md)
-     * [Ubuntu-k8s-template mit Packer erstellen und hochladen](packer/)  
+     * [Ubuntu-k8s-template mit Packer erstellen und hochladen](packer/03-create-ubuntu-k8s-template-and-upload.md)  
 
     

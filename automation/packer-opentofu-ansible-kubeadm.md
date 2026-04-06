@@ -1,6 +1,6 @@
 # Überblick 
 
-
+```
 Packer (proxmox-iso) → VM-Template (ID 9000) mit containerd + kubeadm
     ↓
 OpenTofu (bpg/proxmox) → klont 2 VMs (cp1 + w1) mit statischen IPs
@@ -14,3 +14,4 @@ ansible-playbook -i inventory.ini cluster.yml
     └── Role: cni           → Cilium/Flannel auf cp1 deployen
     ↓
 Cluster ready
+```

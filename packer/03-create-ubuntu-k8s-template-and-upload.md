@@ -155,7 +155,10 @@ source "proxmox-iso" "ubuntu-k8s" {
   disks {
     type         = "scsi"
     disk_size    = "30G"
-    storage_pool = "local-lvm"
+    # normalerweise schon local-lvm
+    # storage_pool = "local-lvm"
+    # in unserer Installation gibt es aber kein lvm
+    storage_pool = "local"
     format       = "raw"
   }
 

@@ -392,7 +392,7 @@ chmod +x scripts/*.sh
 ```bash
 cat > variables.pkrvars.hcl << 'ENDOFFILE'
 proxmox_url          = "https://176.9.38.183:8006/api2/json"
-proxmox_token_id     = "root@pam!packer"
+proxmox_token_id     = "root@pam!automation"
 proxmox_token_secret = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 proxmox_node         = "pve"
 iso_file             = "local:iso/ubuntu-24.04.4-live-server-amd64.iso"

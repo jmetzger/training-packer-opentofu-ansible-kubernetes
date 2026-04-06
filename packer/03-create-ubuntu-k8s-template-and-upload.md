@@ -402,7 +402,7 @@ ENDOFFILE
 **Jetzt die Datei editieren** – Proxmox-Zugangsdaten eintragen:
 
 ```bash
-vi variables.pkrvars.hcl
+nano variables.pkrvars.hcl
 ```
 
 > **Hinweis Token-ID:** Das Format ist `user@realm!tokenname`, z.B. `root@pam!packer`.

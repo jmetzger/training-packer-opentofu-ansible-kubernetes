@@ -41,7 +41,10 @@ sudo apt-get update && sudo apt-get install -y packer
 
 ```bash
 export TLN_NR=1   # <-- EURE Nummer hier!
+```
 
+```bash
+cd
 mkdir -p packer/template-ubuntu/{http,scripts}
 cd packer/template-ubuntu
 ```

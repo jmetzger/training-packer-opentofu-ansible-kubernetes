@@ -4,6 +4,7 @@
 
   1. Vorbereitung proxmox
      * [API - Token einrichten](proxmox/api-key-einrichten.md)
+     * [Ubuntu 24.04 - image in proxmox hochladen](proxmox/ubuntu-24-04-iso-hochladen.md)
   1. Überblick Installation Kubernetes (Automation) 
      * [Packer/Opentofu/Ansible - Workflow Überblick](automation/packer-opentofu-ansible-kubeadm.md)
   1. Packer

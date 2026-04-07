@@ -5,7 +5,7 @@
   * Wir werden ohne externe IP's arbeiten, weil bei hetzner mit Einrichtungsgebühren pro ip von Euro 20,- verbunden sind.
   * Diese Einrichtung brauchen wir so nur für proxmox auf hetzner (und nur wenn wir ausschliesslich mit internen ip's arbeiten)
 
-## Einrichtung: 
+## Einrichtung (Teil 1: ip selbst)
 
 ```
 cat >> /etc/network/interfaces << 'EOF'

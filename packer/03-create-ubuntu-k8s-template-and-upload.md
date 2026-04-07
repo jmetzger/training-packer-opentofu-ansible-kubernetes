@@ -415,6 +415,10 @@ ln -s /etc/machine-id /var/lib/dbus/machine-id
 # SSH Host-Keys entfernen (werden beim Boot neu erzeugt)
 rm -f /etc/ssh/ssh_host_*
 
+# alte netconfig rausnehmen, damit proxmox übernehmen kann
+rm -f /etc/netplan/00-installer-config.yaml
+rm -f /etc/netplan/50-cloud-init.yaml
+
 echo ">>> Template bereit"
 ENDOFFILE
 ```

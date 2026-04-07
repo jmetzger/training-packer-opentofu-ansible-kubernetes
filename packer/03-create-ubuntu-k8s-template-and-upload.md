@@ -237,7 +237,7 @@ autoinstall:
   identity:
     hostname: ubuntu-k8s
     username: trainee
-    password: "$TEMPLATE_PASSWORD"
+    password: "$TEMPLATE_PASSWD"
     # Passwort: training
   ssh:
     install-server: true

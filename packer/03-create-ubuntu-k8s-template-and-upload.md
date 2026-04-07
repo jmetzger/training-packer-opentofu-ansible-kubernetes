@@ -148,6 +148,7 @@ source "proxmox-iso" "ubuntu-k8s" {
 
   boot_iso {
     iso_file = var.iso_file
+    unmount = true 
   }
 
   os           = "l26"
@@ -192,6 +193,7 @@ source "proxmox-iso" "ubuntu-k8s" {
     iso_storage_pool = "local"
     type             = "sata"
     index            = "0"
+    unmount          = true
   }
 
   boot_command = [

@@ -431,7 +431,7 @@ chmod +x scripts/*.sh
 
 ```bash
 # Dateien, die auf ".auto.pkrvars.hcl" enden werden automatisch geladen 
-cat > variables.auto.pkrvars.hcl << 'ENDOFFILE'
+cat > variables.auto.pkrvars.hcl << ENDOFFILE
 proxmox_url          = "https://176.9.38.183:8006/api2/json"
 proxmox_token_id     = "root@pam!automation"
 proxmox_token_secret = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

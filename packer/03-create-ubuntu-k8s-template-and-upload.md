@@ -178,6 +178,8 @@ source "proxmox-iso" "ubuntu-k8s" {
     cd_files = ["./http/user-data", "./http/meta-data"]
     cd_label = "cidata"
     iso_storage_pool = "local"
+    type             = "sata"
+    index            = "0"
   }
 
   boot_command = [

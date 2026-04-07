@@ -164,7 +164,9 @@ source "proxmox-iso" "ubuntu-k8s" {
 
   network_adapters {
     model    = "virtio"
-    bridge   = "vmbr0"
+# Achtung speziell Hetzner
+# Standard meistens vmbr0
+    bridge   = "vmbr1"
     firewall = false
   }
 

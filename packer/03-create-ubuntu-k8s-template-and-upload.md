@@ -480,7 +480,7 @@ Danach ist das ISO unter `local:iso/ubuntu-24.04.4-live-server-amd64.iso` verfü
 ## Schritt 4: Packer initialisieren
 
 ```bash
-packer init ubuntu-k8s.pkr.hcl
+packer init .
 ```
 
 Das lädt das Proxmox-Plugin herunter.

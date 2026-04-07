@@ -242,14 +242,17 @@ autoinstall:
     install-server: true
     allow-pw: true
   network:
-    network:
-      version: 2
-      ethernets:
-        ens18:
-          addresses: [$TEMPLATE_IP/24]
-          gateway4: 10.10.10.1
-          nameservers:
-            addresses: [8.8.8.8, 8.8.4.4]
+    version: 2
+    ethernets:
+      mynet:
+        match:
+          name: "en*"
+        addresses: [$TEMPLATE_IP/24]
+        routes:
+          - to: default
+            via: 10.10.10.1
+        nameservers:
+          addresses: [8.8.8.8, 8.8.4.4]
   storage:
     layout:
       name: lvm

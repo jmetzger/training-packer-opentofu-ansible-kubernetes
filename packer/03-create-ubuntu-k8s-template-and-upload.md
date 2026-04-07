@@ -35,6 +35,11 @@ sudo apt-get update && sudo apt-get install -y packer
 # https://developer.hashicorp.com/packer/downloads
 ```
 
+```
+# zusätzlich wird ein Tool zum Bauen des images benötigt
+sudo apt install -y xorriso
+```
+
 ---
 
 ## Schritt 1: Teilnehmernummer setzen, Zugangsdaten (für Packer und cloud-init) und Verzeichnisstruktur anlegen

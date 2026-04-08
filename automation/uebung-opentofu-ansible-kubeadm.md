@@ -22,7 +22,17 @@ Du erstellst mit OpenTofu einen Kubernetes-Cluster (1 Control Plane, N Worker No
 
 ---
 
-## Schritt 1: Variablen setzen
+## Schritt 1: SSH-Keypair erstellen
+
+Erstelle ein SSH-Keypair ohne Passphrase (wird für cloud-init und Ansible benötigt):
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
+```
+
+---
+
+## Schritt 2: Variablen setzen
 
 Passe die Werte an deine Umgebung an:
 
@@ -34,7 +44,7 @@ export PROXMOX_TOKEN_SECRET="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
 ---
 
-## Schritt 2: Projektstruktur anlegen
+## Schritt 3: Projektstruktur anlegen
 
 ```bash
 mkdir -p ~/opentofu-k8s/templates
@@ -45,7 +55,7 @@ cd ~/opentofu-k8s
 
 ---
 
-## Schritt 3: Provider und VMs (main.tf)
+## Schritt 4: Provider und VMs (main.tf)
 
 ```bash
 cat > main.tf <<'EOF'
@@ -179,7 +189,7 @@ EOF
 
 ---
 
-## Schritt 4: Variablen (variables.tf)
+## Schritt 5: Variablen (variables.tf)
 
 ```bash
 cat > variables.tf <<'EOF'
@@ -262,7 +272,7 @@ EOF
 
 ---
 
-## Schritt 5: Inventory-Template (templates/inventory.tpl)
+## Schritt 6: Inventory-Template (templates/inventory.tpl)
 
 ```bash
 cat > templates/inventory.tpl <<'EOF'
@@ -287,7 +297,7 @@ EOF
 
 ---
 
-## Schritt 6: Outputs und Inventory-Generierung (outputs.tf)
+## Schritt 7: Outputs und Inventory-Generierung (outputs.tf)
 
 ```bash
 cat > outputs.tf <<'EOF'
@@ -338,7 +348,7 @@ EOF
 
 ---
 
-## Schritt 7: tfvars generieren
+## Schritt 8: tfvars generieren
 
 ```bash
 cat > terraform.tfvars <<EOF
@@ -365,7 +375,7 @@ EOF
 
 ---
 
-## Schritt 8: Ansible-Playbook (ansible/site.yml)
+## Schritt 9: Ansible-Playbook (ansible/site.yml)
 
 Da das Template bereits vollständig vorbereitet ist, übernimmt Ansible nur noch das Cluster-Bootstrapping mit Calico als CNI:
 
@@ -473,7 +483,7 @@ EOF
 
 ---
 
-## Schritt 9: OpenTofu ausführen
+## Schritt 10: OpenTofu ausführen
 
 ```bash
 tofu init
@@ -513,7 +523,7 @@ ansible -i inventory/hosts.ini k8s_cluster -m ping
 
 ---
 
-## Schritt 10: Ansible-Playbook ausführen
+## Schritt 11: Ansible-Playbook ausführen
 
 ```bash
 ansible-playbook -i inventory/hosts.ini ansible/site.yml
@@ -521,7 +531,7 @@ ansible-playbook -i inventory/hosts.ini ansible/site.yml
 
 ---
 
-## Schritt 11: Cluster prüfen
+## Schritt 12: Cluster prüfen
 
 Die kubeconfig wurde automatisch nach `~/.kube/config` kopiert. Du kannst direkt lokal arbeiten:
 
@@ -545,7 +555,7 @@ kubectl get pods -n calico-system
 
 ---
 
-## Schritt 12: Aufräumen
+## Schritt 13: Aufräumen
 
 ```bash
 tofu destroy

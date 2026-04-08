@@ -105,6 +105,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   }
 
   initialization {
+    datastore_id = var.datastore
     ip_config {
       ipv4 {
         address = "${var.cp_ip}/24"
@@ -153,6 +154,7 @@ resource "proxmox_virtual_environment_vm" "worker" {
   }
 
   initialization {
+    datastore_id = var.datastore
     ip_config {
       ipv4 {
         address = "${cidrhost("${var.worker_base_ip}/24", count.index)}/24"

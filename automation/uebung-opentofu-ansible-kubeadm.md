@@ -74,6 +74,11 @@ provider "proxmox" {
   insecure  = true
 }
 
+locals {
+  worker_ip_prefix = join(".", slice(split(".", var.worker_base_ip), 0, 3))
+  worker_ip_start  = tonumber(split(".", var.worker_base_ip)[3])
+}
+
 # --- Control Plane: VM-ID = 3<TLN_NR>0 ---
 resource "proxmox_virtual_environment_vm" "controlplane" {
   name      = "k8s-tln${var.tln_nr}-cp"
@@ -157,7 +162,7 @@ resource "proxmox_virtual_environment_vm" "worker" {
     datastore_id = var.datastore
     ip_config {
       ipv4 {
-        address = "${join(".", slice(split(".", var.worker_base_ip), 0, 3))}.${tonumber(split(".", var.worker_base_ip)[3]) + count.index}/24"
+        address = "${local.worker_ip_prefix}.${local.worker_ip_start + count.index}/24"
         gateway = var.gateway
       }
     }
@@ -310,7 +315,7 @@ resource "local_file" "ansible_inventory" {
     workers = [
       for i, vm in proxmox_virtual_environment_vm.worker : {
         name = vm.name
-        ip   = "${join(".", slice(split(".", var.worker_base_ip), 0, 3))}.${tonumber(split(".", var.worker_base_ip)[3]) + i}"
+        ip   = "${local.worker_ip_prefix}.${local.worker_ip_start + i}"
       }
     ]
     vm_user = var.vm_user
@@ -331,7 +336,7 @@ output "controlplane_ip" {
 output "worker_ips" {
   value = [
     for i in range(var.worker_count) :
-    "${join(".", slice(split(".", var.worker_base_ip), 0, 3))}.${tonumber(split(".", var.worker_base_ip)[3]) + i}"
+    "${local.worker_ip_prefix}.${local.worker_ip_start + i}"
   ]
 }
 

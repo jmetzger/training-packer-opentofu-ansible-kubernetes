@@ -265,6 +265,8 @@ autoinstall:
         nameservers:
           addresses: [8.8.8.8, 8.8.4.4]
   storage:
+    swap:
+      size: 0 
     layout:
       name: lvm
   packages:
@@ -296,9 +298,11 @@ echo ">>> System-Updates"
 apt-get update
 apt-get upgrade -y
 
-echo ">>> Swap deaktivieren"
-swapoff -a
-sed -i '/ swap / s/^/#/' /etc/fstab
+# Swap wird erst garnicht angelegt (user-data),
+# Deshalb brauchen wir es nicht deaktivieren 
+# echo ">>> Swap deaktivieren"
+# swapoff -a
+# sed -i '/ swap / s/^/#/' /etc/fstab
 
 echo ">>> IPv4 Forwarding & Bridge-Netfilter"
 cat > /etc/sysctl.d/99-kubernetes.conf <<EOF

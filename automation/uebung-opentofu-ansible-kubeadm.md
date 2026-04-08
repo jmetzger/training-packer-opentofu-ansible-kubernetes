@@ -38,7 +38,11 @@ Passe die Werte an deine Umgebung an:
 
 ```bash
 export TLN_NR="1"
-export PROXMOX_TOKEN_ID="root@pam!automation"
+export PROXMOX_TOKEN_ID='root@pam!automation'
+```
+
+```bash
+# mit richtigem secret ersetzen 
 export PROXMOX_TOKEN_SECRET="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ```
 

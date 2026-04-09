@@ -1,4 +1,4 @@
-# Übung: HA Kubernetes-Cluster mit OpenTofu und Ansible auf Proxmox
+# Übung: HA Kubernetes-Cluster mit OpenTofu und Ansible auf Proxmox ( 3 Controlplanes )
 
 ## Ziel
 

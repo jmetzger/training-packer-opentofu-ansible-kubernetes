@@ -467,7 +467,7 @@ nano variables.auto.pkrvars.hcl
 
 ---
 
-## ISO-Datei
+## ISO-Datei (macht der Trainer)
 
 Das Ubuntu 24.04 Server ISO muss **vorab auf dem Proxmox-Server** im Storage liegen.
 Der Trainer lädt es einmal hoch – ihr referenziert es dann über `iso_file`.

@@ -13,6 +13,7 @@
      * [Packer bash-completion aktivieren](packer/02-bash-completion.md)
      * [Ubuntu-k8s-template mit Packer erstellen und hochladen](packer/03-create-ubuntu-k8s-template-and-upload.md)
   1. OpenTofu
+     * [Was ist/kann OpenTofu, Was nicht ?](opentofu/overview-what-is-what-for.md)
      * [OpenTofu installieren auf client](opentofu/installation.md)
      * [OpenTofu bash completion](opentofu/bash-completion.md)
   1. ansible

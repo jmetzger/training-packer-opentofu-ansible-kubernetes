@@ -6,18 +6,24 @@
      * [vmbr1 für interne IP's aufsetzen in proxmox (nur Hetzner !)](proxmox/01-vmbr1-einrichten.md)
      * [API - Token einrichten](proxmox/api-key-einrichten.md)
      * [Ubuntu 24.04 - image in proxmox hochladen](proxmox/ubuntu-24-04-iso-hochladen.md)
+  
   1. Überblick Installation Kubernetes (Automation) 
      * [Packer/Opentofu/Ansible - Workflow Überblick](automation/packer-opentofu-ansible-kubeadm.md)
+  
   1. Packer
+     * [Was ist Packer ?](packer/00-overview.md)
      * [Packer installieren](packer/01-installation.md)
      * [Packer bash-completion aktivieren](packer/02-bash-completion.md)
      * [Ubuntu-k8s-template mit Packer erstellen und hochladen](packer/03-create-ubuntu-k8s-template-and-upload.md)
+  
   1. OpenTofu
      * [Was ist/kann OpenTofu, Was nicht ?](opentofu/overview-what-is-what-for.md)
      * [OpenTofu installieren auf client](opentofu/installation.md)
      * [OpenTofu bash completion](opentofu/bash-completion.md)
+  
   1. ansible
      * [ansible installation](ansible/installation.md)    
+  
   1. Kubernetes-Instalation mit Opentofu und Ansible
      * [Kubernetes (kubeadm) - Installation mit opentofu und ansible](automation/uebung-opentofu-ansible-kubeadm.md)  
   

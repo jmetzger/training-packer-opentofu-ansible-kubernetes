@@ -35,6 +35,8 @@
 
 ## Finger weg – dafür ist OpenTofu NICHT gedacht
 
+ - **OpenTofu kann schlecht mit Dateien umgehen. Zustände von Dateien (das kann ansible besser !)**
+
 | Anti-Pattern | Warum nicht | Besser |
 |---|---|---|
 | **Software auf VMs installieren/konfigurieren** | OpenTofu provisioniert, konfiguriert nicht | **Ansible**, cloud-init |

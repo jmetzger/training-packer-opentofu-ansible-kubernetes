@@ -26,7 +26,8 @@
      * [ansible installation](ansible/installation.md)    
   
   1. Kubernetes-Installation mit Opentofu und Ansible
-     * [Kubernetes (kubeadm) - Installation mit opentofu und ansible](automation/uebung-opentofu-ansible-kubeadm.md)  
+     * [Kubernetes (kubeadm) - Installation mit opentofu und ansible](automation/uebung-opentofu-ansible-kubeadm.md)
+     * [Kubernetes HA-Cluster (kubeadm) - Installation mit opentofu und ansible](automation/uebung-opentofu-ansible-kubeadm-3-controlplanes.md)
 
   1. Misc
      * [HyperV und opentofu ? Alternativen ?](misc/01-hyperv-opentofu.md)

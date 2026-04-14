@@ -123,8 +123,8 @@ provider "proxmox" {
 }
 
 locals {
-  ip_prefix = join(".", slice(split(".", var.vip), 0, 3))
-  vip_last  = tonumber(split(".", var.vip)[3])
+  ip_prefix = join(".", slice(split(".", var.node_base_ip), 0, 3))
+  ip_start  = tonumber(split(".", var.node_base_ip)[3])
 }
 
 # --- HAProxy/Keepalived Nodes: VM-ID = 3<TLN_NR>1, 3<TLN_NR>2 ---
@@ -162,7 +162,7 @@ resource "proxmox_virtual_environment_vm" "haproxy" {
     datastore_id = var.datastore
     ip_config {
       ipv4 {
-        address = "${local.ip_prefix}.${local.vip_last + count.index + 1}/24"
+        address = "${local.ip_prefix}.${local.ip_start + count.index}/24"
         gateway = var.gateway
       }
     }
@@ -211,7 +211,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     datastore_id = var.datastore
     ip_config {
       ipv4 {
-        address = "${local.ip_prefix}.${local.vip_last + count.index + 3}/24"
+        address = "${local.ip_prefix}.${local.ip_start + 2 + count.index}/24"
         gateway = var.gateway
       }
     }
@@ -260,7 +260,7 @@ resource "proxmox_virtual_environment_vm" "worker" {
     datastore_id = var.datastore
     ip_config {
       ipv4 {
-        address = "${local.ip_prefix}.${local.vip_last + count.index + 3 + var.cp_count}/24"
+        address = "${local.ip_prefix}.${local.ip_start + 2 + var.cp_count + count.index}/24"
         gateway = var.gateway
       }
     }
@@ -334,6 +334,11 @@ variable "vip" {
   type        = string
 }
 
+variable "node_base_ip" {
+  description = "IP des ersten Nodes (LB1), weitere werden hochgezählt"
+  type        = string
+}
+
 variable "gateway" {
   type = string
 }
@@ -404,19 +409,19 @@ resource "local_file" "ansible_inventory" {
     lbs = [
       for i, vm in proxmox_virtual_environment_vm.haproxy : {
         name = vm.name
-        ip   = "${local.ip_prefix}.${local.vip_last + i + 1}"
+        ip   = "${local.ip_prefix}.${local.ip_start + i}"
       }
     ]
     cps = [
       for i, vm in proxmox_virtual_environment_vm.controlplane : {
         name = vm.name
-        ip   = "${local.ip_prefix}.${local.vip_last + i + 3}"
+        ip   = "${local.ip_prefix}.${local.ip_start + 2 + i}"
       }
     ]
     workers = [
       for i, vm in proxmox_virtual_environment_vm.worker : {
         name = vm.name
-        ip   = "${local.ip_prefix}.${local.vip_last + i + 3 + var.cp_count}"
+        ip   = "${local.ip_prefix}.${local.ip_start + 2 + var.cp_count + i}"
       }
     ]
     vm_user = var.vm_user
@@ -439,21 +444,21 @@ output "vip" {
 output "haproxy_ips" {
   value = [
     for i in range(2) :
-    "${local.ip_prefix}.${local.vip_last + i + 1}"
+    "${local.ip_prefix}.${local.ip_start + i}"
   ]
 }
 
 output "controlplane_ips" {
   value = [
     for i in range(var.cp_count) :
-    "${local.ip_prefix}.${local.vip_last + i + 3}"
+    "${local.ip_prefix}.${local.ip_start + 2 + i}"
   ]
 }
 
 output "worker_ips" {
   value = [
     for i in range(var.worker_count) :
-    "${local.ip_prefix}.${local.vip_last + i + 3 + var.cp_count}"
+    "${local.ip_prefix}.${local.ip_start + 2 + var.cp_count + i}"
   ]
 }
 
@@ -480,6 +485,7 @@ template_vm_id   = 900${TLN_NR}
 cp_count        = 3
 worker_count    = 1
 vip             = "10.10.10.1${TLN_NR}0"
+node_base_ip    = "10.10.10.1${TLN_NR}1"
 gateway         = "10.10.10.1"
 dns_server      = "8.8.8.8"
 

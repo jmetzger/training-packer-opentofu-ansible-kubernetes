@@ -154,7 +154,8 @@ frontend k8s-api
 ```
 backend k8s-api
     mode tcp                         # TCP-Modus (TLS-Termination macht der API-Server)
-    option tcp-check                 # Health Check: prüft ob TCP-Verbindung möglich
+    option httpchk GET /healthz      # Health Check: HTTPS-Request an /healthz
+    http-check expect status 200     # Nur Status 200 = gesund
     balance roundrobin               # Neue Verbindungen reihum verteilen
     default-server                   # Standardwerte für alle server-Zeilen:
         inter 10s                    #   Health Check alle 10 Sekunden
@@ -165,9 +166,9 @@ backend k8s-api
         maxconn 250                  #   Max 250 gleichzeitige Verbindungen pro Server
         maxqueue 256                 #   Max 256 wartende Verbindungen in der Queue
         weight 100                   #   Gewichtung (alle gleich = gleichmäßig)
-    server cp1 10.10.10.113:6443 check   # Backend-Server mit Health Check
-    server cp2 10.10.10.114:6443 check
-    server cp3 10.10.10.115:6443 check
+    server cp1 10.10.10.113:6443 check check-ssl verify none  # check-ssl: Health Check über HTTPS
+    server cp2 10.10.10.114:6443 check check-ssl verify none  # verify none: selbst-signiertes Zert. akzeptieren
+    server cp3 10.10.10.115:6443 check check-ssl verify none
 ```
 
 **Hinweis zu Round-Robin im TCP-Modus:** HAProxy verteilt pro neuer TCP-Verbindung. Da kubectl HTTP/2 mit persistenten Verbindungen nutzt, bleibt eine kubectl-Session auf demselben CP. Erst bei einer neuen Verbindung (neuer Client, Reconnect) wird der nächste CP gewählt. Der Hauptvorteil ist nicht die Lastverteilung, sondern die automatische Erkennung und Umgehung ausgefallener CPs.
@@ -718,11 +719,12 @@ cat > ansible/site.yml <<'EOF'
 
           backend k8s-api
               mode tcp
-              option tcp-check
+              option httpchk GET /healthz
+              http-check expect status 200
               balance roundrobin
               default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
           {% for host in cp_hosts %}
-              server cp{{ loop.index }} {{ host }}:6443 check
+              server cp{{ loop.index }} {{ host }}:6443 check check-ssl verify none
           {% endfor %}
       notify: haproxy restart
 
